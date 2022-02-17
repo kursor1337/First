@@ -1,3 +1,5 @@
+import groovy.swing.factory.RichActionWidgetFactory;
+
 import java.lang.reflect.Array;
 import java.util.*;
 public class BinaryTree implements Set<Integer> {
@@ -93,30 +95,6 @@ public class BinaryTree implements Set<Integer> {
             return true;
         }
         return false;
-
-//        if (node != null) {
-//            if (node.right == null && node.left == null) {
-//                if (node.parent != null) {
-//                    if (node.isRight()) node.parent.right = null;
-//                    else node.parent.left = null;
-//                } else root = null;
-//            } else if (node.right == null) {
-//                node.data = node.left.data;
-//                node.left = null;
-//            } else if (node.left == null) {
-//                node.data = node.right.data;
-//                node.right = null;
-//            } else {
-//                Node current = node.right;
-//                while (current.left != null) current = current.left;
-//                node.data = current.data;
-//                if (current.isRight()) {
-//                    current.parent.right = null;
-//                } else current.parent.left = null;
-//            }
-//            size--;
-//            return true;
-//        } else return false;
     }
 
 
@@ -311,7 +289,7 @@ public class BinaryTree implements Set<Integer> {
         return sb.substring(0, sb.length() - 1);
     }
 
-    private static class Node {
+    public static class Node {
 
         private int data;
         private Node parent;
@@ -323,6 +301,25 @@ public class BinaryTree implements Set<Integer> {
             this.parent = parent;
         }
 
+        public Node getParent() {
+            return parent;
+        }
+
+        public Node getLeft() {
+            return left;
+        }
+
+        public Node getRight() {
+            return right;
+        }
+
+        public int getData() {
+            return data;
+        }
+
+        public void setData(int data) {
+            this.data = data;
+        }
         void delete() {
             if (isRight()) parent.right = null;
             else parent.left = null;

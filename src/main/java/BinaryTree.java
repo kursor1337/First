@@ -1,5 +1,3 @@
-import groovy.swing.factory.RichActionWidgetFactory;
-
 import java.lang.reflect.Array;
 import java.util.*;
 public class BinaryTree implements Set<Integer> {
@@ -16,8 +14,8 @@ public class BinaryTree implements Set<Integer> {
     private int size = 0;
 
     public BinaryTree(int... integers) {
-        int[] nums = Arrays.stream(integers).sorted().toArray();
-        root = buildBST(nums, 0, integers.length - 1, null);
+        Arrays.sort(integers);
+        root = buildBST(integers, 0, integers.length - 1, null);
         size = integers.length;
     }
 
@@ -38,7 +36,8 @@ public class BinaryTree implements Set<Integer> {
         return root;
     }
 
-    private Node searchForNode(int i) {
+    // через этот метод можно достать нод, а у него уже найти соседей через геттеры parent, left, right
+    public Node searchForNode(int i) {
         Node current = root;
         while (current != null) {
             if (i > current.data) current = current.right;
@@ -96,7 +95,6 @@ public class BinaryTree implements Set<Integer> {
         }
         return false;
     }
-
 
     private void deleteNode(Node p) {
         size--;
@@ -210,8 +208,8 @@ public class BinaryTree implements Set<Integer> {
         return true;
     }
 
-    public boolean containsAll(int... integers) {
-        return containsAll(Arrays.stream(integers).boxed().toList());
+    public boolean containsAll(Integer... integers) {
+        return containsAll(Arrays.asList(integers));
     }
 
     @Override
@@ -224,8 +222,8 @@ public class BinaryTree implements Set<Integer> {
         return flag;
     }
 
-    public boolean addAll(int... integers) {
-        return addAll(Arrays.stream(integers).boxed().toList());
+    public boolean addAll(Integer... integers) {
+        return addAll(Arrays.asList(integers));
     }
 
     @Override
@@ -240,8 +238,8 @@ public class BinaryTree implements Set<Integer> {
         return flag;
     }
 
-    public boolean retainAll(int... integers) {
-        return retainAll(Arrays.stream(integers).boxed().toList());
+    public boolean retainAll(Integer... integers) {
+        return retainAll(Arrays.asList(integers));
     }
 
     @Override
@@ -254,8 +252,8 @@ public class BinaryTree implements Set<Integer> {
         return flag;
     }
 
-    public boolean removeAll(int... integers) {
-        return removeAll(Arrays.stream(integers).boxed().toList());
+    public boolean removeAll(Integer... integers) {
+        return removeAll(Arrays.asList(integers));
     }
 
     @Override
@@ -266,16 +264,20 @@ public class BinaryTree implements Set<Integer> {
     @Override
     public boolean equals(Object o) {
         if (this.getClass() != o.getClass()) return false;
-        return this.hashCode() == o.hashCode();
+        BinaryTree other = (BinaryTree) o;
+        if (this.size() != other.size()) return false;
+        int[] arrayThis = this.toIntArray();
+        int[] arrayOther = other.toIntArray();
+        return Arrays.equals(arrayThis, arrayOther);
     }
 
     @Override
     public int hashCode() {
-        double hash  = 0;
-        for (int i: this) {
-            hash += ((double) i) / size;
+        int result = 0;
+        for (Integer i: this) {
+            result += i.hashCode();
         }
-        return (int) hash;
+        return result;
     }
 
     @Override
@@ -289,7 +291,7 @@ public class BinaryTree implements Set<Integer> {
         return sb.substring(0, sb.length() - 1);
     }
 
-    public static class Node {
+    private static class Node {
 
         private int data;
         private Node parent;
@@ -320,6 +322,7 @@ public class BinaryTree implements Set<Integer> {
         public void setData(int data) {
             this.data = data;
         }
+
         void delete() {
             if (isRight()) parent.right = null;
             else parent.left = null;

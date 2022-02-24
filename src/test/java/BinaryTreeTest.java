@@ -51,7 +51,6 @@ public class BinaryTreeTest {
     @Test
     public void isEmpty() {
         BinaryTree binaryTree = new BinaryTree(1, 2, 3, 4, 5, 6, 7);
-        System.out.println(binaryTree.size());
         binaryTree.remove(1);
         binaryTree.remove(2);
         binaryTree.remove(3);
@@ -59,7 +58,6 @@ public class BinaryTreeTest {
         binaryTree.remove(5);
         binaryTree.remove(6);
         binaryTree.remove(7);
-        System.out.println(binaryTree.size());
         assertTrue(binaryTree.isEmpty());
     }
 }

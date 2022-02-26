@@ -15,16 +15,16 @@ public class BinaryTreeTest {
     public void add() {
         BinaryTree result = new BinaryTree(1, 2, 3, 4, 5, 6);
         result.add(7);
-        assertEquals("1 2 3 4 5 6 7", result.toString());
+        assertEquals(new BinaryTree(1, 2, 3, 4, 5, 6, 7), result);
     }
 
     @Test
     public void remove() {
         BinaryTree binaryTree = new BinaryTree(1, 2, 3, 4, 5, 6);
         binaryTree.remove(5);
-        assertEquals("1 2 3 4 6", binaryTree.toString());
+        assertEquals(new BinaryTree(1, 2, 3, 4, 6), binaryTree);
         binaryTree.removeAll(1, 2, 3, 4, 6);
-        assertEquals("", binaryTree.toString());
+        assertEquals(new BinaryTree(), binaryTree);
     }
 
     @Test
@@ -34,13 +34,6 @@ public class BinaryTreeTest {
         assertFalse(binaryTree.contains(1));
         assertTrue(binaryTree.contains(2));
     }
-
-    @Test
-    public void constructor() {
-        BinaryTree binaryTree = new BinaryTree(9, 1, 2, 3, 4, 5, 6, 7, 8);
-        assertEquals("1 2 3 4 5 6 7 8 9", binaryTree.toString());
-    }
-
 
     @Test
     public void size() {

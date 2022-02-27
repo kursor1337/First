@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="BinaryTreeTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-02-16T19:33:02" hostname="DESKTOP-9F1ERO0" time="0.017">
+<testsuite name="BinaryTreeTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-02-26T12:54:19" hostname="DESKTOP-9F1ERO0" time="0.013">
   <properties/>
-  <testcase name="isEmpty()" classname="BinaryTreeTest" time="0.017"/>
-  <system-out><![CDATA[7
-0
-]]></system-out>
+  <testcase name="isEmpty()" classname="BinaryTreeTest" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

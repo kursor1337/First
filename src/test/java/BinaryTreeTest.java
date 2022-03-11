@@ -45,4 +45,23 @@ public class BinaryTreeTest {
         binaryTree.remove(7);
         assertTrue(binaryTree.isEmpty());
     }
+
+    @Test
+    public void multi() {
+        BinaryTree binaryTree = new BinaryTree(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        binaryTree.remove(5);
+        assertFalse(binaryTree.contains(5));
+        assertEquals(new BinaryTree(1, 2, 3, 4, 6, 7, 8, 9, 10), binaryTree);
+        binaryTree.add(5);
+        assertEquals(new BinaryTree(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), binaryTree);
+        assertTrue(binaryTree.contains(5));
+        assertEquals(10, binaryTree.size());
+        binaryTree.removeAll(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        assertEquals(new BinaryTree(10), binaryTree);
+        assertEquals(1, binaryTree.size());
+        binaryTree.remove(10);
+        binaryTree.addAll(332, 555, 0, -500);
+        assertEquals(4, binaryTree.size());
+        assertEquals(new BinaryTree(332, 555, 0, -500), binaryTree);
+    }
 }

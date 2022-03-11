@@ -12,7 +12,6 @@ public class BinaryTree implements Set<Integer> {
      */
     private Node root;
     private int size = 0;
-
     public BinaryTree(int... integers) {
         Arrays.sort(integers);
         root = buildBST(integers, 0, integers.length - 1, null);
@@ -53,28 +52,27 @@ public class BinaryTree implements Set<Integer> {
             root = new Node(i, null);
             size++;
             return true;
-        } else {
-            Node current = root;
-            Node previous = null;
-            while (true) {
-                if (i > current.data) {
-                    previous = current;
-                    current = current.right;
-                    if (current == null) {
-                        previous.right = new Node(i, previous);
-                        size++;
-                        return true;
-                    }
-                } else if (i < current.data) {
-                    previous = current;
-                    current = current.left;
-                    if (current == null) {
-                        previous.left = new Node(i, previous);
-                        size++;
-                        return true;
-                    }
-                } else return false;
-            }
+        }
+        Node current = root;
+        Node previous = null;
+        while (true) {
+            if (i > current.data) {
+                previous = current;
+                current = current.right;
+                if (current == null) {
+                    previous.right = new Node(i, previous);
+                    size++;
+                    return true;
+                }
+            } else if (i < current.data) {
+                previous = current;
+                current = current.left;
+                if (current == null) {
+                    previous.left = new Node(i, previous);
+                    size++;
+                    return true;
+                }
+            } else return false;
         }
     }
 
@@ -112,6 +110,7 @@ public class BinaryTree implements Set<Integer> {
 
         if (replacement != null) {
             // Link replacement to parent
+
             replacement.parent = p.parent;
             if (p.parent == null)
                 root = replacement;
@@ -133,7 +132,7 @@ public class BinaryTree implements Set<Integer> {
         }
     }
 
-
+    // ищет нод, с самым маленьким значением больше нашего
     static Node successor(Node t) {
         if (t == null)
             return null;
@@ -343,6 +342,7 @@ public class BinaryTree implements Set<Integer> {
 
     public static class BinaryTreeIterator implements Iterator<Integer> {
         private Node next;
+        private Node lastReturned;
 
         public BinaryTreeIterator(Node root) {
             next = root;
@@ -364,28 +364,13 @@ public class BinaryTree implements Set<Integer> {
 
         public Node nextNode(){
             if(!hasNext()) throw new NoSuchElementException();
-            Node r = next;
+            lastReturned = next;
+            next = successor(next);
+            return lastReturned;
+        }
 
-            // If you can walk right, walk right, then fully left.
-            // otherwise, walk up until you come from left.
-            if(next.right != null) {
-                next = next.right;
-                while (next.left != null)
-                    next = next.left;
-                return r;
-            }
-
-            while(true) {
-                if(next.parent == null) {
-                    next = null;
-                    return r;
-                }
-                if(next.parent.left == next) {
-                    next = next.parent;
-                    return r;
-                }
-                next = next.parent;
-            }
+        public Node lastReturned() {
+            return lastReturned;
         }
     }
 }

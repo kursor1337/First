@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.*;
+
 public class BinaryTree implements Set<Integer> {
 
     /*
@@ -12,6 +13,7 @@ public class BinaryTree implements Set<Integer> {
      */
     private Node root;
     private int size = 0;
+
     public BinaryTree(int... integers) {
         Arrays.sort(integers);
         root = buildBST(integers, 0, integers.length - 1, null);
@@ -115,7 +117,7 @@ public class BinaryTree implements Set<Integer> {
             if (p.parent == null)
                 root = replacement;
             else if (p == p.parent.left)
-                p.parent.left  = replacement;
+                p.parent.left = replacement;
             else
                 p.parent.right = replacement;
 
@@ -175,7 +177,7 @@ public class BinaryTree implements Set<Integer> {
     public int[] toIntArray() {
         int[] result = new int[size];
         int i = 0;
-        for (int element: this) {
+        for (int element : this) {
             result[i++] = element;
         }
         return result;
@@ -191,7 +193,7 @@ public class BinaryTree implements Set<Integer> {
         }
 
         int i = 0;
-        for (Integer e: this) {
+        for (Integer e : this) {
 
             array[i] = (T) e;
             i++;
@@ -201,7 +203,7 @@ public class BinaryTree implements Set<Integer> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        for (Object o: c) {
+        for (Object o : c) {
             if (!contains(o)) return false;
         }
         return true;
@@ -214,7 +216,7 @@ public class BinaryTree implements Set<Integer> {
     @Override
     public boolean addAll(Collection<? extends Integer> c) {
         boolean flag = true;
-        for (int i: c) {
+        for (int i : c) {
             boolean b = add(i);
             if (!b) flag = false;
         }
@@ -228,7 +230,7 @@ public class BinaryTree implements Set<Integer> {
     @Override
     public boolean retainAll(Collection<?> c) {
         boolean flag = true;
-        for (int i: this) {
+        for (int i : this) {
             if (!c.contains(i)) {
                 boolean b = remove(i);
                 if (!b) flag = false;
@@ -244,7 +246,7 @@ public class BinaryTree implements Set<Integer> {
     @Override
     public boolean removeAll(Collection<?> c) {
         boolean flag = true;
-        for (Object o: c) {
+        for (Object o : c) {
             boolean b = remove(o);
             if (!b) flag = false;
         }
@@ -273,7 +275,7 @@ public class BinaryTree implements Set<Integer> {
     @Override
     public int hashCode() {
         int result = 0;
-        for (Integer i: this) {
+        for (Integer i : this) {
             result += i.hashCode();
         }
         return result;
@@ -283,7 +285,7 @@ public class BinaryTree implements Set<Integer> {
     public String toString() {
         if (isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
-        for (int i: this) {
+        for (int i : this) {
             sb.append(i);
             sb.append(" ");
         }
@@ -346,14 +348,14 @@ public class BinaryTree implements Set<Integer> {
 
         public BinaryTreeIterator(Node root) {
             next = root;
-            if(next == null)
+            if (next == null)
                 return;
 
             while (next.left != null)
                 next = next.left;
         }
 
-        public boolean hasNext(){
+        public boolean hasNext() {
             return next != null;
         }
 
@@ -362,8 +364,8 @@ public class BinaryTree implements Set<Integer> {
             return nextNode().data;
         }
 
-        public Node nextNode(){
-            if(!hasNext()) throw new NoSuchElementException();
+        public Node nextNode() {
+            if (!hasNext()) throw new NoSuchElementException();
             lastReturned = next;
             next = successor(next);
             return lastReturned;
